@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Request deletion of your Winnie the Pooh account and associated data — DE DEV LLC.">
+  <title>Delete Account · Winnie the Pooh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream-top: #fffbf0;
+      --cream-bottom: #f2e6d8;
+      --title: #35211a;
+      --body: #5a3a1a;
+      --muted: #9a8570;
+      --honey: #f5a623;
+      --honey-dark: #d4890a;
+      --forest: #2d5a27;
+      --card: rgba(255, 255, 255, 0.82);
+      --border: rgba(107, 58, 42, 0.14);
+      --shadow: 0 18px 50px rgba(53, 33, 26, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      color: var(--body);
+      background:
+        radial-gradient(circle at top left, rgba(245, 166, 35, 0.16), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(45, 90, 39, 0.08), transparent 24%),
+        linear-gradient(180deg, var(--cream-top) 0%, var(--cream-bottom) 100%);
+      line-height: 1.65;
+    }
+
+    .page {
+      width: min(920px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2.5rem 0 4rem;
+    }
+
+    .hero {
+      position: relative;
+      padding: 2.5rem 2rem 2rem;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--honey), var(--honey-dark), var(--forest));
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(245, 166, 35, 0.14);
+      color: var(--title);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    h1 {
+      margin: 1rem 0 0.5rem;
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(2rem, 5vw, 2.6rem);
+      line-height: 1.08;
+      color: var(--title);
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 44rem;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+      margin-top: 1.35rem;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .meta strong { color: var(--title); }
+
+    .content {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    section {
+      padding: 1.5rem 1.6rem;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 8px 24px rgba(53, 33, 26, 0.04);
+    }
+
+    section h2 {
+      margin: 0 0 0.85rem;
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1.35rem;
+      color: var(--title);
+    }
+
+    section p, section li { margin: 0; font-size: 0.98rem; }
+    section p + p, section p + ol, section p + ul, section ol + p, section ul + p { margin-top: 0.85rem; }
+    ol, ul { padding-left: 1.2rem; }
+    li + li { margin-top: 0.45rem; }
+
+    a { color: var(--forest); font-weight: 600; }
+
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding: 1rem 1rem 1rem 3.25rem;
+      margin-top: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(255, 248, 238, 0.65);
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      width: 1.65rem;
+      height: 1.65rem;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--honey);
+      color: var(--title);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .callout {
+      margin-top: 1rem;
+      padding: 0.95rem 1rem;
+      border-left: 4px solid var(--honey);
+      border-radius: 0 14px 14px 0;
+      background: rgba(245, 166, 35, 0.1);
+      color: var(--title);
+      font-size: 0.94rem;
+    }
+
+    .email-link {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.65rem 1rem;
+      border-radius: 12px;
+      background: rgba(45, 90, 39, 0.1);
+      text-decoration: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.94rem;
+      margin-top: 0.5rem;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid rgba(107, 58, 42, 0.1);
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--title);
+      font-weight: 600;
+      width: 38%;
+    }
+
+    .footer {
+      margin-top: 1.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 560px) {
+      .page { width: min(100%, calc(100% - 1rem)); padding-top: 1rem; }
+      .hero, section { padding: 1.25rem; }
+      th, td { display: block; width: 100%; }
+      th { border-bottom: 0; padding-bottom: 0.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="badge">Winnie the Pooh · Account Deletion</div>
+      <h1>Delete your account &amp; data</h1>
+      <p class="subtitle">
+        This page explains how to request deletion of your <strong>Winnie the Pooh</strong>
+        account and associated data for the mobile app published by
+        <strong>DE DEV LLC</strong> (package ID: <strong>com.winnie.app</strong>).
+      </p>
+      <div class="meta">
+        <span><strong>App:</strong> Winnie the Pooh</span>
+        <span><strong>Developer:</strong> DE DEV LLC</span>
+        <span><strong>Last updated:</strong> September 1, 2026</span>
+      </div>
+    </header>
+
+    <div class="content">
+      <section id="how-to">
+        <h2>How to request account deletion</h2>
+        <p>
+          You can request deletion of your account and associated personal data by
+          emailing us. We will verify your request and process it within
+          <strong>7–14 business days</strong>.
+        </p>
+        <ol class="steps">
+          <li>
+            Send an email to
+            <a href="mailto:privacy@dedev-llc.com?subject=Account%20Deletion%20Request%20-%20Winnie%20the%20Pooh">privacy@dedev-llc.com</a>
+            from the email address linked to your Winnie the Pooh account.
+          </li>
+          <li>
+            Use the subject line: <strong>Account Deletion Request – Winnie the Pooh</strong>.
+          </li>
+          <li>
+            In the message, include the email address you used to sign up (if different
+            from the sender address) and confirm that you want your account permanently deleted.
+          </li>
+          <li>
+            We will confirm receipt by email and notify you when deletion is complete.
+          </li>
+        </ol>
+        <a class="email-link" href="mailto:privacy@dedev-llc.com?subject=Account%20Deletion%20Request%20-%20Winnie%20the%20Pooh">
+          Email privacy@dedev-llc.com
+        </a>
+      </section>
+
+      <section id="deleted">
+        <h2>Data that will be deleted</h2>
+        <p>When your account is deleted, we remove or anonymize the following:</p>
+        <ul>
+          <li>Account credentials and profile information (name, email, user ID)</li>
+          <li>Google Sign-In linkage associated with your account</li>
+          <li>App preferences (language, narration speed, autoplay, read-along settings)</li>
+          <li>Listening progress and chapter playback history synced to our servers</li>
+          <li>Guest-session data linked to your account (if applicable)</li>
+        </ul>
+      </section>
+
+      <section id="kept">
+        <h2>Data that may be kept</h2>
+        <table>
+          <tr>
+            <th>Data type</th>
+            <th>Why it may be kept</th>
+          </tr>
+          <tr>
+            <td>Security, fraud-prevention, and server logs</td>
+            <td>Retained for up to <strong>90 days</strong> where required for security, troubleshooting, or legal compliance, then deleted or anonymized.</td>
+          </tr>
+          <tr>
+            <td>Backup copies</td>
+            <td>May remain in encrypted backups for up to <strong>30 days</strong> before being permanently removed.</td>
+          </tr>
+          <tr>
+            <td>Records required by law</td>
+            <td>Retained only as long as legally required (e.g., billing or tax records if you had a paid subscription).</td>
+          </tr>
+        </table>
+      </section>
+
+      <section id="device">
+        <h2>Data stored on your device</h2>
+        <p>
+          Some data is stored locally on your phone and is <strong>not automatically
+          removed</strong> when we delete your server account:
+        </p>
+        <ul>
+          <li>Downloaded stories for offline listening</li>
+          <li>Cached images and narration audio files</li>
+          <li>Local app settings stored on the device</li>
+        </ul>
+        <p>
+          To remove this data, delete downloaded stories in the app
+          (<strong>Profile → Downloaded Stories</strong>) and uninstall the app from
+          your device.
+        </p>
+      </section>
+
+      <section id="guest">
+        <h2>Guest accounts</h2>
+        <p>
+          If you used the app in guest mode without creating a full account, contact us
+          at <a href="mailto:privacy@dedev-llc.com">privacy@dedev-llc.com</a> with any
+          details you can provide (device, approximate usage date). We will make reasonable
+          efforts to delete associated guest session data.
+        </p>
+      </section>
+
+      <section id="more">
+        <h2>More information</h2>
+        <p>
+          For full details on how we collect and use data, see our
+          <a href="privacy-policy.html">Privacy Policy</a>.
+        </p>
+        <div class="callout">
+          Deleting your account is permanent and cannot be undone. You will lose access
+          to saved progress, preferences, and any premium benefits tied to your account.
+        </div>
+      </section>
+    </div>
+
+    <p class="footer">
+      © 2026 DE DEV LLC · Winnie the Pooh ·
+      <a href="privacy-policy.html">Privacy Policy</a>
+    </p>
+  </main>
+</body>
+</html>
